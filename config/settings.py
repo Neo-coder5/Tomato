@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-%&^spt3u3)62bly@lxw^osg+5^h5)-*(u4dyf5k^r#!v6u(!=l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,10 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'my_app',
-    'drf_yasg',
-    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -124,10 +120,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-from decouple import config
-
-GEMINI_API_KEY = config('GEMINI_API_KEY')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
