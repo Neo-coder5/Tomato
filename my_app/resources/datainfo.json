@@ -1,0 +1,500 @@
+{
+  "data": [
+    {
+      "name": "algal leaf in tea",
+      "plantPart": "leaf",
+      "plantName": "tea",
+      "disease": "algal leaf",
+      "diseaseType": "other",
+      "cure": "Improve air circulation by pruning bushes. Spray copper-based fungicides like Copper Oxychloride 50% WP. Maintain balanced plant nutrition to increase vigor."
+    },
+    {
+      "name": "anthracnose in tea",
+      "plantPart": "leaf",
+      "plantName": "tea",
+      "disease": "anthracnose",
+      "diseaseType": "fungal",
+      "cure": "Prune and destroy infected twigs. Spray with fungicides containing active ingredients like Chlorothalonil, Mancozeb, or copper-based compounds. Ensure proper drainage and avoid water stagnation."
+    },
+    {
+      "name": "apple apple scab",
+      "plantPart": "leaf",
+      "plantName": "apple",
+      "disease": "apple scab",
+      "diseaseType": "fungal",
+      "cure": "Remove and dispose of fallen leaves in autumn to reduce fungal spores. Use resistant apple varieties. Apply fungicides like Captan, Myclobutanil, or Mancozeb, starting from early spring."
+    },
+    {
+      "name": "apple black rot",
+      "plantPart": "leaf",
+      "plantName": "apple",
+      "disease": "black rot",
+      "diseaseType": "fungal",
+      "cure": "Prune out dead or cankered branches during dormancy. Remove and destroy mummified fruits. Apply fungicides such as Captan or Thiophanate-methyl during the growing season."
+    },
+    {
+      "name": "apple cedar apple rust",
+      "plantPart": "leaf",
+      "plantName": "apple",
+      "disease": "cedar apple rust",
+      "diseaseType": "fungal",
+      "cure": "Remove nearby cedar or juniper trees (alternate hosts). If not possible, apply fungicides like Myclobutanil or Ferbam to apple trees from pink-bud stage through second cover spray."
+    },
+    {
+      "name": "apple healthy",
+      "plantPart": "leaf",
+      "plantName": "apple",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health through proper watering, balanced fertilization, regular pruning for air circulation, and proactive monitoring for pests and diseases."
+    },
+    {
+      "name": "bacterial leaf blight in rice leaf",
+      "plantPart": "leaf",
+      "plantName": "rice",
+      "disease": "bacterial leaf blight",
+      "diseaseType": "bacterial",
+      "cure": "Plant resistant varieties. Use disease-free seeds. Avoid excessive nitrogen fertilization. Apply copper-based bactericides like Copper Hydroxide at the first sign of disease, though effectiveness can be limited."
+    },
+    {
+      "name": "bird eye spot in tea",
+      "plantPart": "leaf",
+      "plantName": "tea",
+      "disease": "bird eye spot",
+      "diseaseType": "fungal",
+      "cure": "Improve air movement by pruning. Avoid excessive shade. Apply fungicides containing Copper Oxychloride or Mancozeb during periods of high humidity."
+    },
+    {
+      "name": "blight in corn leaf",
+      "plantPart": "leaf",
+      "plantName": "corn",
+      "disease": "blight",
+      "diseaseType": "fungal",
+      "cure": "Use resistant hybrids. Practice crop rotation with non-host crops. Use tillage to bury crop residue. Apply foliar fungicides like Pyraclostrobin or Azoxystrobin if disease is severe."
+    },
+    {
+      "name": "blueberry healthy",
+      "plantPart": "leaf",
+      "plantName": "blueberry",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by ensuring acidic soil (pH 4.5-5.5), regular watering, proper pruning, and applying appropriate fertilizers."
+    },
+    {
+      "name": "brown blight in tea",
+      "plantPart": "leaf",
+      "plantName": "tea",
+      "disease": "brown blight",
+      "diseaseType": "fungal",
+      "cure": "Prune affected branches to improve air circulation. Spray protective fungicides such as Mancozeb or Copper Oxychloride, especially during wet seasons."
+    },
+    {
+      "name": "brown spot in rice leaf",
+      "plantPart": "leaf",
+      "plantName": "rice",
+      "disease": "brown spot",
+      "diseaseType": "fungal",
+      "cure": "Ensure balanced nutrition, especially potassium. Treat seeds with fungicides like Thiram. Apply foliar fungicides such as Propiconazole or Azoxystrobin in the field."
+    },
+    {
+      "name": "cabbage looper",
+      "plantPart": "insect",
+      "plantName": "cabbage",
+      "disease": "cabbage looper",
+      "diseaseType": "insect",
+      "cure": "Handpick caterpillars on small plantings. Use floating row covers to prevent egg-laying. Apply biological insecticides containing Bacillus thuringiensis (Bt) or Spinosad."
+    },
+    {
+      "name": "cercospora leaf spot",
+      "plantPart": "not specified",
+      "plantName": "not specified",
+      "disease": "cercospora leaf spot",
+      "diseaseType": "fungal",
+      "cure": "Remove and destroy infected leaves. Improve air circulation. Apply fungicides containing Chlorothalonil, Myclobutanil, or copper-based compounds."
+    },
+    {
+      "name": "cherry (including sour) powdery mildew",
+      "plantPart": "leaf",
+      "plantName": "cherry (including sour)",
+      "disease": "powdery mildew",
+      "diseaseType": "fungal",
+      "cure": "Prune trees to increase air circulation. Apply fungicides containing sulfur, potassium bicarbonate, or Myclobutanil at the first sign of mildew."
+    },
+    {
+      "name": "cherry (including_sour) healthy",
+      "plantPart": "leaf",
+      "plantName": "cherry (including sour)",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health with proper pruning, adequate watering, balanced fertilization, and monitoring for common pests and diseases like brown rot and aphids."
+    },
+    {
+      "name": "common rust in corn leaf",
+      "plantPart": "leaf",
+      "plantName": "corn",
+      "disease": "common rust",
+      "diseaseType": "fungal",
+      "cure": "Planting resistant hybrids is the primary method of control. Foliar fungicides like Pyraclostrobin or Tebuconazole can be effective if applied early when rust pustules first appear."
+    },
+    {
+      "name": "corn (maize) healthy",
+      "plantPart": "leaf",
+      "plantName": "corn",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health through appropriate planting density, timely weed control, balanced nutrient management (especially nitrogen), and adequate water supply."
+    },
+    {
+      "name": "corn crop",
+      "plantPart": "crop(fruit)",
+      "plantName": "corn",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Ensure optimal growth conditions including sufficient water, nutrients, and pest control to produce a healthy crop."
+    },
+    {
+      "name": "garlic",
+      "plantPart": "crop(root)",
+      "plantName": "garlic",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by planting in well-drained soil, ensuring full sun, and practicing crop rotation to prevent soil-borne diseases like white rot."
+    },
+    {
+      "name": "ginger",
+      "plantPart": "crop(root)",
+      "plantName": "ginger",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health with well-drained, rich soil, partial shade, and consistent moisture. Avoid waterlogging to prevent rhizome rot."
+    },
+    {
+      "name": "grape black rot",
+      "plantPart": "leaf",
+      "plantName": "grape",
+      "disease": "black rot",
+      "diseaseType": "fungal",
+      "cure": "Practice good sanitation by removing and destroying mummified berries, infected leaves, and canes. Apply fungicides like Mancozeb, Ziram, or Myclobutanil on a regular schedule."
+    },
+    {
+      "name": "grape esca black measles",
+      "plantPart": "leaf",
+      "plantName": "grape",
+      "disease": "esca black measles",
+      "diseaseType": "fungal",
+      "cure": "There is no direct cure. Management involves pruning out and destroying symptomatic wood (cordons or trunk) well below the symptomatic area. Protect large pruning wounds with a sealant."
+    },
+    {
+      "name": "grape healthy",
+      "plantPart": "leaf",
+      "plantName": "grape",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health through a good spray program for diseases like powdery mildew and black rot, proper canopy management (leaf pulling), and balanced irrigation."
+    },
+    {
+      "name": "grape leaf blight isariopsis leaf spot",
+      "plantPart": "leaf",
+      "plantName": "grape",
+      "disease": "leaf blight isariopsis leaf spot",
+      "diseaseType": "fungal",
+      "cure": "Generally, this is a minor disease. Standard fungicide programs for other grape diseases (like black rot) using Mancozeb will also control leaf blight."
+    },
+    {
+      "name": "gray leaf spot in corn leaf",
+      "plantPart": "leaf",
+      "plantName": "corn",
+      "disease": "gray leaf spot",
+      "diseaseType": "fungal",
+      "cure": "Use tolerant corn hybrids. Practice crop rotation and tillage to manage residue. Apply foliar fungicides like Azoxystrobin with Propiconazole when lesions appear on lower leaves."
+    },
+    {
+      "name": "healthy tea leaf",
+      "plantPart": "leaf",
+      "plantName": "tea",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by ensuring proper soil drainage and acidity, balanced fertilization, regular pruning, and managing pests and diseases proactively."
+    },
+    {
+      "name": "leaf smut in rice leaf",
+      "plantPart": "leaf",
+      "plantName": "rice",
+      "disease": "leaf smut",
+      "diseaseType": "fungal",
+      "cure": "This disease is usually minor and doesn't require control. Using disease-free seed and balanced fertilization helps. Fungicide application is not typically recommended."
+    },
+    {
+      "name": "lemon canker",
+      "plantPart": "crop(fruit)",
+      "plantName": "lemon",
+      "disease": "canker",
+      "diseaseType": "bacterial",
+      "cure": "No cure for infected trees. Management focuses on prevention. Use windbreaks to reduce spread. Apply copper-based bactericides to protect fruit and leaves from infection."
+    },
+    {
+      "name": "nitrogen deficiency in plant",
+      "plantPart": "leaf",
+      "plantName": "not specified",
+      "disease": "nitrogen deficiency in plant",
+      "diseaseType": "malnutrition",
+      "cure": "Apply a nitrogen-rich fertilizer. For a quick fix, use a foliar spray of diluted liquid fertilizer like fish emulsion or a solution of Urea. For long-term treatment, amend the soil with compost or a granular fertilizer like Ammonium Sulfate."
+    },
+    {
+      "name": "onion",
+      "plantPart": "crop(vegetable)",
+      "plantName": "onion",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by ensuring well-drained soil, consistent watering, and practicing crop rotation to prevent diseases like downy mildew and pink root."
+    },
+    {
+      "name": "orange haunglongbing citrus greening",
+      "plantPart": "leaf",
+      "plantName": "orange",
+      "disease": "haunglongbing citrus greening",
+      "diseaseType": "bacterial",
+      "cure": "There is no cure for infected trees. Management involves removing and destroying infected trees immediately and aggressively controlling the insect vector, the Asian citrus psyllid, with systemic insecticides like Imidacloprid."
+    },
+    {
+      "name": "peach healthy",
+      "plantPart": "leaf",
+      "plantName": "peach",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health with dormant oil sprays, regular pruning, and a preventative fungicide schedule to control major diseases like peach leaf curl and brown rot."
+    },
+    {
+      "name": "pepper bell bacterial spot",
+      "plantPart": "leaf",
+      "plantName": "pepper bell",
+      "disease": "bacterial spot",
+      "diseaseType": "bacterial",
+      "cure": "Use disease-free seeds and resistant varieties. Practice crop rotation. Spray with copper-based bactericides combined with Mancozeb. Avoid working with plants when they are wet."
+    },
+    {
+      "name": "pepper bell healthy",
+      "plantPart": "leaf",
+      "plantName": "pepper bell",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by providing full sun, well-drained soil, consistent moisture, and monitoring for pests like aphids and diseases like bacterial spot."
+    },
+    {
+      "name": "potassium deficiency in plant",
+      "plantPart": "leaf",
+      "plantName": "any plant",
+      "disease": "potassium deficiency",
+      "diseaseType": "malnutrition",
+      "cure": "Apply a potassium-rich fertilizer such as Muriate of Potash (Potassium Chloride) or Sulfate of Potash to the soil. For a faster response, a foliar spray of a soluble potassium fertilizer like Potassium Nitrate can be used."
+    },
+    {
+      "name": "potato crop",
+      "plantPart": "crop(fruit)",
+      "plantName": "potato",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Ensure a healthy crop by using certified seed potatoes, practicing crop rotation, and managing water and nutrient levels carefully to prevent disorders and diseases."
+    },
+    {
+      "name": "potato early blight",
+      "plantPart": "leaf",
+      "plantName": "potato",
+      "disease": "early blight",
+      "diseaseType": "fungal",
+      "cure": "Practice crop rotation. Destroy volunteer potato plants and weeds. Apply preventative fungicides containing Chlorothalonil, Mancozeb, or Azoxystrobin."
+    },
+    {
+      "name": "potato healthy",
+      "plantPart": "leaf",
+      "plantName": "potato",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by planting certified disease-free seed, ensuring proper hilling of soil around plants, and using a preventative spray program for early and late blight."
+    },
+    {
+      "name": "potato hollow heart",
+      "plantPart": "crop(fruit)",
+      "plantName": "potato",
+      "disease": "hollow heart",
+      "diseaseType": "other",
+      "cure": "This is a physiological disorder, not a disease. Prevent it by maintaining consistent soil moisture and avoiding sudden growth spurts caused by heavy rain or excessive fertilization, especially late in the season."
+    },
+    {
+      "name": "potato late blight",
+      "plantPart": "leaf",
+      "plantName": "potato",
+      "disease": "late blight",
+      "diseaseType": "fungal",
+      "cure": "Use resistant varieties. Destroy all cull piles. Apply fungicides proactively, especially during cool, moist weather. Common fungicides include Chlorothalonil (preventative) and Cymoxanil (curative)."
+    },
+    {
+      "name": "raspberry healthy",
+      "plantPart": "leaf",
+      "plantName": "raspberry",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by pruning canes after harvest, ensuring good air circulation, managing weeds, and planting in well-drained soil to avoid root rot."
+    },
+    {
+      "name": "red leaf spot in tea",
+      "plantPart": "leaf",
+      "plantName": "tea",
+      "disease": "red leaf spot",
+      "diseaseType": "other",
+      "cure": "This is often caused by nutrient imbalances or other stresses. Ensure balanced fertilization, particularly with potassium and magnesium. Improve soil health and drainage. Fungicides are generally not effective."
+    },
+    {
+      "name": "sogatella rice",
+      "plantPart": "insect",
+      "plantName": "rice",
+      "disease": "sogatella rice",
+      "diseaseType": "insect",
+      "cure": "Control the insect vector, Sogatella furcifera (white-backed planthopper). Use resistant rice varieties. Apply systemic insecticides like Imidacloprid, Thiamethoxam, or Buprofezin when populations reach economic threshold levels."
+    },
+    {
+      "name": "soybean healthy",
+      "plantPart": "leaf",
+      "plantName": "soybean",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by using appropriate planting dates and row spacing, practicing crop rotation, using fungicide seed treatments, and scouting for pests like soybean aphids."
+    },
+    {
+      "name": "strawberry healthy",
+      "plantPart": "leaf",
+      "plantName": "strawberry",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by planting in raised beds for drainage, using mulch (like straw) to keep fruit clean and reduce rot, and renovating beds after harvest."
+    },
+    {
+      "name": "strawberry leaf scorch",
+      "plantPart": "leaf",
+      "plantName": "strawberry",
+      "disease": "leaf scorch",
+      "diseaseType": "fungal",
+      "cure": "Use resistant varieties. Remove old, infected leaves after harvest (renovation). Apply fungicides containing active ingredients like Myclobutanil or Captan."
+    },
+    {
+      "name": "tomato bacterial spot",
+      "plantPart": "leaf",
+      "plantName": "tomato",
+      "disease": "bacterial spot",
+      "diseaseType": "bacterial",
+      "cure": "Use disease-free seed. Practice crop rotation. Mulch plants to reduce water splash. Spray with fixed copper bactericides, often mixed with Mancozeb for better results."
+    },
+    {
+      "name": "tomato canker",
+      "plantPart": "crop(fruit)",
+      "plantName": "tomato",
+      "disease": "canker",
+      "diseaseType": "bacterial",
+      "cure": "There is no effective cure. Prevention is key. Use certified disease-free seed and transplants. Practice strict sanitation of tools. Rotate crops, avoiding tomatoes and peppers in the same spot for at least 3 years."
+    },
+    {
+      "name": "tomato early blight",
+      "plantPart": "leaf",
+      "plantName": "tomato",
+      "disease": "early blight",
+      "diseaseType": "fungal",
+      "cure": "Prune lower leaves to increase air circulation. Mulch around base of plants. Apply preventative fungicides like Chlorothalonil or Mancozeb."
+    },
+    {
+      "name": "tomato healthy",
+      "plantPart": "leaf",
+      "plantName": "tomato",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health by providing at least 6-8 hours of direct sun, consistent watering, staking or caging plants, and a balanced fertilizer low in nitrogen and high in phosphorus and potassium."
+    },
+    {
+      "name": "tomato late blight",
+      "plantPart": "leaf",
+      "plantName": "tomato",
+      "disease": "late blight",
+      "diseaseType": "fungal",
+      "cure": "A very destructive disease. Remove and destroy infected plants immediately. Apply fungicides proactively, especially in cool, wet weather. Use products containing Chlorothalonil (preventative) or Cymoxanil (curative)."
+    },
+    {
+      "name": "tomato leaf mold",
+      "plantPart": "leaf",
+      "plantName": "tomato",
+      "disease": "leaf mold",
+      "diseaseType": "fungal",
+      "cure": "Improve air circulation by spacing plants and pruning. Reduce humidity, especially in greenhouses. Apply fungicides containing Mancozeb, Chlorothalonil, or copper-based compounds."
+    },
+    {
+      "name": "tomato septoria leaf spot",
+      "plantPart": "leaf",
+      "plantName": "tomato",
+      "disease": "septoria leaf spot",
+      "diseaseType": "fungal",
+      "cure": "Remove and destroy infected lower leaves. Use mulch to prevent spore splashing. Rotate crops. Apply fungicides containing Chlorothalonil or copper."
+    },
+    {
+      "name": "tomato spider mites two spotted spider mite",
+      "plantPart": "leaf",
+      "plantName": "tomato",
+      "disease": "spider mites two-spotted spider mite",
+      "diseaseType": "insect",
+      "cure": "Spray plants with a strong stream of water to dislodge mites. Use insecticidal soap or neem oil for light infestations. For severe cases, use a miticide containing active ingredients like Abamectin or Spiromesifen."
+    },
+    {
+      "name": "tomato target spot",
+      "plantPart": "leaf",
+      "plantName": "tomato",
+      "disease": "target spot",
+      "diseaseType": "fungal",
+      "cure": "Improve air circulation and avoid overhead watering. Remove infected leaves. Apply fungicides like Chlorothalonil or Mancozeb."
+    },
+    {
+      "name": "tomato tomato mosaic virus",
+      "plantPart": "leaf",
+      "plantName": "tomato",
+      "disease": "tomato mosaic virus",
+      "diseaseType": "viral",
+      "cure": "No cure. Remove and destroy infected plants immediately to prevent spread. Practice good sanitation (wash hands, disinfect tools). Control insect vectors like aphids. Plant resistant varieties."
+    },
+    {
+      "name": "waterlogging in plant",
+      "plantPart": "not specified",
+      "plantName": "not specified",
+      "disease": "waterlogging",
+      "diseaseType": "other",
+      "cure": "Improve soil drainage by adding organic matter (compost) or creating raised beds. For potted plants, ensure pots have drainage holes and use well-aerating potting mix. Reduce watering frequency."
+    },
+    {
+      "name": "coccidiosis",
+      "plantPart": "not specified",
+      "plantName": "not specified",
+      "disease": "coccidiosis",
+      "diseaseType": "other",
+      "cure": "This primarily affects poultry. Treat the flock with anticoccidial drugs (coccidiostats) in the water or feed, such as Amprolium or Toltrazuril. Keep litter clean and dry to prevent reinfection."
+    },
+    {
+      "name": "salmonella",
+      "plantPart": "not specified",
+      "plantName": "not specified",
+      "disease": "salmonella",
+      "diseaseType": "bacterial",
+      "cure": "In animals (like poultry), treatment is often not practical for food production. Prevention is key: strict biosecurity, pest control, and using clean feed and water. In some cases, a veterinarian may prescribe antibiotics like sulfonamides."
+    },
+    {
+      "name": "healthy chicken",
+      "plantPart": "not specified",
+      "plantName": "chicken",
+      "disease": "healthy",
+      "diseaseType": "healthy",
+      "cure": "Maintain health through a clean and dry coop, fresh water and appropriate feed, vaccinations, and biosecurity measures to prevent introduction of diseases."
+    },
+    {
+      "name": "chicken new castle disease",
+      "plantPart": "not specified",
+      "plantName": "chicken",
+      "disease": "new castle disease",
+      "diseaseType": "viral",
+      "cure": "No cure. This is a highly contagious viral disease. Prevention through vaccination is the only effective control method. Use vaccines like LaSota or B1 strains. Implement strict biosecurity to prevent introduction."
+    }
+  ]
+}
