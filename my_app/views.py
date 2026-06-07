@@ -10,6 +10,9 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 from .models import PredictionHistory
 
+# 🌟 TARJIMON KUTUBXONASINI ULAYMIZ
+from deep_translator import GoogleTranslator
+
 # =========================================
 # 🔧 RESURSLARNING YO'LLARI (PATHS)
 # =========================================
@@ -20,7 +23,7 @@ MODEL_PATH = os.path.join(RESOURCE_PATH, "Plaintify_diseases_classifier_model.ke
 DIS_JSON_PATH = os.path.join(RESOURCE_PATH, "dis.json")
 DATA_INFO_JSON_PATH = os.path.join(RESOURCE_PATH, "datainfo.json")
 
-# Server yonganda fayllarni xotiraga bir marta yuklab olamiz (Tezlik uchun)
+# Server yonganda fayllarni xotiraga bir marta yuklab olamiz
 MODEL = tf.keras.models.load_model(MODEL_PATH)
 
 with open(DIS_JSON_PATH, "r", encoding="utf-8") as f:
@@ -49,14 +52,14 @@ CLASS_LABELS = [
     'red leaf spot in tea', 'tomato canker'
 ]
 
-# Tahlillar tarixini log faylga yozib borish sozlamasi
 logging.basicConfig(filename='predictions.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+
 
 # =========================================
 # 🚀 DJANGO API VIEW (KLASS)
 # =========================================
 class PlantDiseasePredictView(APIView):
-    parser_classes = (MultiPartParser,) # Rasm fayllarini qabul qilish uchun parser
+    parser_classes = (MultiPartParser,)
 
     def post(self, request, *args, **kwargs):
         image_file = request.FILES.get('image')
@@ -64,23 +67,22 @@ class PlantDiseasePredictView(APIView):
             return Response({"error": "Rasm fayli yuklanmadi!"}, status=400)
 
         try:
-            # 1. Rasmni AI model o'qiydigan formatga keltirish (224x224 va RGB)
+            # 1. Rasmni AI model o'qiydigan formatga keltirish
             img = Image.open(image_file).convert("RGB")
             img = img.resize((224, 224), Image.Resampling.LANCZOS)
             img_array = np.array(img, dtype=np.float32) / 255.0
             img_array = np.expand_dims(img_array, axis=0)
 
-            # 2. Model orqali kasallikni aniqlash (Inference)
+            # 2. Model orqali kasallikni aniqlash
             predictions = MODEL.predict(img_array, verbose=0)
-            idx = np.argmax(predictions[0])
-            confidence = float(predictions[0][idx])
+            idx = np.argmax(predictions)
+            confidence = float(predictions[idx])
             predicted_class = CLASS_LABELS[idx]
             disease_key = predicted_class.lower()
 
-            # Natijani log faylga yozish
-            logging.info(f"Rasm: {image_file.name} | Natija: {predicted_class} | Ishonch: {confidence*100:.2f}%")
+            logging.info(f"Rasm: {image_file.name} | Natija: {predicted_class} | Ishonch: {confidence * 100:.2f}%")
 
-            # 3. Natijani ma'lumotlar bazasida (SQLite/PostgreSQL) saqlash
+            # 3. Natijani ma'lumotlar bazasida saqlash
             user = request.user if request.user.is_authenticated else None
             PredictionHistory.objects.create(
                 user=user,
@@ -89,7 +91,7 @@ class PlantDiseasePredictView(APIView):
                 confidence=f"{confidence * 100:.2f}%"
             )
 
-            # 4. datainfo.json faylidan o'simlik ma'lumotlarini qidirish
+            # 4. datainfo.json faylidan ma'lumotlarni qidirish
             matched = DATA_INFO_DF[DATA_INFO_DF["name"].str.contains(disease_key, case=False, na=False)]
             plant_info = {}
             if not matched.empty:
@@ -109,15 +111,36 @@ class PlantDiseasePredictView(APIView):
                         additional_cure = DIS_JSON[key]
                         break
 
-            # 6. Yakuniy javobni chiroyli paket (JSON) ko'rinishida qaytarish
+            # 6. 🌟 INGLIZCHADAN O'ZBEK TILIGA AVTOMATIK TARJIMA QILISH
+            # Tarjimon ob'ektini yaratamiz (en -> uz)
+            translator = GoogleTranslator(source='en', target='uz')
+
+            # Kasallik nomi va davolash choralarini tarjima qilamiz
+            uz_detected_disease = translator.translate(predicted_class)
+
+            uz_plant_info = {}
+            if plant_info:
+                uz_plant_info = {
+                    "plant_name": translator.translate(plant_info["plant_name"]),
+                    "part_affected": translator.translate(plant_info["part_affected"]),
+                    "disease_type": translator.translate(plant_info["disease_type"]),
+                    "cure": translator.translate(plant_info["cure"])
+                }
+
+            uz_additional_cure = "Qo'shimcha davolash chorasi yo'q."
+            if additional_cure:
+                uz_additional_cure = translator.translate(additional_cure)
+
+            # 7. Yakuniy javobni O'ZBEK tilida qaytarish
             return Response({
                 "status": "success",
                 "prediction": {
-                    "detected_disease": predicted_class,
+                    "detected_disease_en": predicted_class,
+                    "detected_disease_uz": uz_detected_disease,  # ◄ O'zbekcha nomi
                     "confidence": f"{confidence * 100:.2f}%"
                 },
-                "details": plant_info if plant_info else "Batafsil ma'lumot topilmadi.",
-                "additional_cure": additional_cure if additional_cure else "Qo'shimcha davolash chorasi yo'q."
+                "details_uz": uz_plant_info if uz_plant_info else "Batafsil ma'lumot topilmadi.",
+                "additional_cure_uz": uz_additional_cure
             })
 
         except Exception as e:
