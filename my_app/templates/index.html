@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'simliklar Shifokori - AI</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .loader {
+            border-top-color: #10B981;
+            animation: spinner 1.5s linear infinite;
+        }
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col items-center justify-center p-6">
+
+    <div class="max-w-xl w-full bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-emerald-600 mb-2">🌿 Agroskaner AI</h1>
+            <p class="text-gray-500 text-sm">Zararlangan o'simlik bargini yuklang va AI sekundlar ichida tashxis qo'yadi.</p>
+        </div>
+
+        <form id="uploadForm" class="space-y-6">
+            <div class="flex items-center justify-center w-full">
+                <label class="flex flex-col items-center justify-center w-full h-44 border-2 border-emerald-300 border-dashed rounded-xl cursor-pointer bg-emerald-50/30 hover:bg-emerald-50 transition-all">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <svg class="w-10 h-10 mb-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                        <p class="mb-2 text-sm text-gray-700 font-semibold">Rasmni tanlang yoki shu yerga tashlang</p>
+                        <p class="text-xs text-gray-400">PNG, JPG yoki WEBP</p>
+                    </div>
+                    <input id="imageInput" type="file" accept="image/*" class="hidden" required />
+                </label>
+            </div>
+
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition-colors shadow-md shadow-emerald-200 cursor-pointer">
+                Tahlil qilish 🔍
+            </button>
+        </form>
+
+        <div id="loader" class="hidden flex-col items-center justify-center my-6 space-y-3">
+            <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+            <p class="text-emerald-600 text-sm font-medium animate-pulse">Sun'iy intellekt bargni tahlil qilmoqda...</p>
+        </div>
+
+        <div id="resultCard" class="hidden mt-8 border-t border-gray-100 pt-6 space-y-4">
+            <h3 class="text-xl font-bold text-gray-800">📊 Tahlil Natijasi:</h3>
+
+            <div class="bg-gray-50 rounded-xl p-4 space-y-3 border border-gray-200/60">
+                <div class="mb-4 text-center">
+                    <p class="text-xs text-gray-400 mb-1 text-left">📸 Yuklangan rasm:</p>
+                    <img id="resImage" src="" alt="Yuklangan rasm" class="mx-auto max-h-56 rounded-lg shadow-sm border border-gray-200 object-cover">
+                </div>
+                <hr class="border-gray-200/60 my-2">
+
+                <p class="text-gray-700"><strong class="text-gray-900">🌿 O'simlik:</strong> <span id="resPlant" class="text-emerald-700 font-medium"></span></p>
+                <p class="text-gray-700"><strong class="text-gray-900">🦠 Aniqlangan kasallik:</strong> <span id="resDisease" class="text-red-600 font-bold"></span></p>
+                <p class="text-gray-700"><strong class="text-gray-900">🎯 Aniqlik ehtimoli:</strong> <span id="resConfidence" class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded-full"></span></p>
+                <p class="text-gray-700"><strong class="text-gray-900">📍 Zararlangan qismi:</strong> <span id="resPart"></span></p>
+                <p class="text-gray-700"><strong class="text-gray-900">🧪 Kasallik turi:</strong> <span id="resType"></span></p>
+                <div class="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+                    <strong class="text-emerald-900 block mb-1">💊 Davolash choralari:</strong>
+                    <p id="resCure" class="text-gray-700 text-sm leading-relaxed"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const imageInput = document.getElementById('imageInput').files[0];
+            if (!imageInput) return;
+
+            const formData = new FormData();
+            formData.append('image', imageInput);
+
+            document.getElementById('loader').classList.remove('hidden');
+            document.getElementById('resultCard').classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/analyze-leaf/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                document.getElementById('loader').classList.add('hidden');
+
+                if (response.ok && data.status === 'success') {
+                    // 🚀 Rasmni foydalanuvchi kompyuteridan o'qib, srazu ko'rsatish logikasi
+                    const imageUrl = URL.createObjectURL(imageInput);
+                    document.getElementById('resImage').src = imageUrl;
+
+                    // Qolgan ma'lumotlarni joylash
+                    document.getElementById('resPlant').innerText = data.plant_name || "Noma'lum";
+                    document.getElementById('resDisease').innerText = data.detected_disease || "Sog'lom";
+                    document.getElementById('resConfidence').innerText = data.confidence || "0%";
+                    document.getElementById('resPart').innerText = data.part_affected || "Barg";
+                    document.getElementById('resType').innerText = data.disease_type || "Noma'lum";
+                    document.getElementById('resCure').innerText = data.cure || "Ma'lumot topilmadi.";
+
+                    document.getElementById('resultCard').classList.remove('hidden');
+                } else {
+                    alert("Xatolik yuz berdi: " + (data.error || "Model band."));
+                }
+            } catch (error) {
+                document.getElementById('loader').classList.add('hidden');
+                alert("Server bilan aloqa uzildi.");
+            }
+        });
+    </script>
+</body>
+</html>

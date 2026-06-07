@@ -1,147 +1,79 @@
 import os
 import json
-import logging
-import numpy as np
-import pandas as pd
-import tensorflow as tf
-from PIL import Image
+from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.parsers import MultiPartParser
-from .models import PredictionHistory
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework import status
+from google import genai
+from PIL import Image
 
-# 🌟 TARJIMON KUTUBXONASINI ULAYMIZ
-from deep_translator import GoogleTranslator
+from django.shortcuts import render
 
-# =========================================
-# 🔧 RESURSLARNING YO'LLARI (PATHS)
-# =========================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-RESOURCE_PATH = os.path.join(BASE_DIR, 'resources')
+# Glavniy sahifaga kirganda index.html ni chiqaradigan funksiya
+def home_page_view(request):
+    return render(request, 'index.html')
 
-MODEL_PATH = os.path.join(RESOURCE_PATH, "Plaintify_diseases_classifier_model.keras")
-DIS_JSON_PATH = os.path.join(RESOURCE_PATH, "dis.json")
-DATA_INFO_JSON_PATH = os.path.join(RESOURCE_PATH, "datainfo.json")
-
-# Server yonganda fayllarni xotiraga bir marta yuklab olamiz
-MODEL = tf.keras.models.load_model(MODEL_PATH)
-
-with open(DIS_JSON_PATH, "r", encoding="utf-8") as f:
-    DIS_JSON = json.load(f)
-
-with open(DATA_INFO_JSON_PATH, "r", encoding="utf-8") as f:
-    DATA_INFO_DF = pd.DataFrame(json.load(f)["data"])
-
-CLASS_LABELS = [
-    'Apple Apple scab', 'Apple Black rot', 'Apple Cedar apple rust', 'Apple healthy',
-    'Bacterial leaf blight in rice leaf', 'Blight in corn Leaf', 'Blueberry healthy',
-    'Brown spot in rice leaf', 'Cercospora leaf spot', 'Cherry (including sour) Powdery mildew',
-    'Cherry (including_sour) healthy', 'Common Rust in corn Leaf', 'Corn (maize) healthy', 'Garlic',
-    'Grape Black rot', 'Grape Esca Black Measles', 'Grape Leaf blight Isariopsis Leaf Spot',
-    'Grape healthy', 'Gray Leaf Spot in corn Leaf', 'Leaf smut in rice leaf',
-    'Nitrogen deficiency in plant', 'Orange Haunglongbing Citrus greening', 'Peach healthy',
-    'Pepper bell Bacterial spot', 'Pepper bell healthy', 'Potato Early blight',
-    'Potato Late blight', 'Potato healthy', 'Raspberry healthy', 'Sogatella rice',
-    'Soybean healthy', 'Strawberry Leaf scorch', 'Strawberry healthy', 'Tomato Bacterial spot',
-    'Tomato Early blight', 'Tomato Late blight', 'Tomato Leaf Mold', 'Tomato Septoria leaf spot',
-    'Tomato Spider mites Two spotted spider mite', 'Tomato Target Spot',
-    'Tomato Tomato mosaic virus', 'Tomato healthy', 'Waterlogging in plant', 'algal leaf in tea',
-    'anthracnose in tea', 'bird eye spot in tea', 'brown blight in tea', 'cabbage looper',
-    'corn crop', 'ginger', 'healthy tea leaf', 'lemon canker', 'onion',
-    'potassium deficiency in plant', 'potato crop', 'potato hollow heart',
-    'red leaf spot in tea', 'tomato canker'
-]
-
-logging.basicConfig(filename='predictions.log', level=logging.INFO, format='%(asctime)s - %(message)s')
-
-
-# =========================================
-# 🚀 DJANGO API VIEW (KLASS)
-# =========================================
-class PlantDiseasePredictView(APIView):
-    parser_classes = (MultiPartParser,)
+class LeafDiseaseAnalyzeView(APIView):
+    # Rasm formatidagi fayllarni qabul qilish uchun parserlar
+    parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request, *args, **kwargs):
+        # 1. Request ichidan rasm faylini ajratib olamiz
         image_file = request.FILES.get('image')
+
         if not image_file:
-            return Response({"error": "Rasm fayli yuklanmadi!"}, status=400)
-
-        try:
-            # 1. Rasmni AI model o'qiydigan formatga keltirish
-            img = Image.open(image_file).convert("RGB")
-            img = img.resize((224, 224), Image.Resampling.LANCZOS)
-            img_array = np.array(img, dtype=np.float32) / 255.0
-            img_array = np.expand_dims(img_array, axis=0)
-
-            # 2. Model orqali kasallikni aniqlash
-            predictions = MODEL.predict(img_array, verbose=0)
-            idx = np.argmax(predictions)
-            confidence = float(predictions[idx])
-            predicted_class = CLASS_LABELS[idx]
-            disease_key = predicted_class.lower()
-
-            logging.info(f"Rasm: {image_file.name} | Natija: {predicted_class} | Ishonch: {confidence * 100:.2f}%")
-
-            # 3. Natijani ma'lumotlar bazasida saqlash
-            user = request.user if request.user.is_authenticated else None
-            PredictionHistory.objects.create(
-                user=user,
-                image_name=image_file.name,
-                detected_disease=predicted_class,
-                confidence=f"{confidence * 100:.2f}%"
+            return Response(
+                {"error": "Rasm yuklanmadi. Iltimos, 'image' kaliti bilan rasm yuboring."},
+                status=status.HTTP_400_BAD_REQUEST
             )
 
-            # 4. datainfo.json faylidan ma'lumotlarni qidirish
-            matched = DATA_INFO_DF[DATA_INFO_DF["name"].str.contains(disease_key, case=False, na=False)]
-            plant_info = {}
-            if not matched.empty:
-                info = matched.iloc[0]
-                plant_info = {
-                    "plant_name": str(info['plantName']),
-                    "part_affected": str(info['plantPart']),
-                    "disease_type": str(info['diseaseType']),
-                    "cure": str(info['cure'])
-                }
+        try:
+            # 2. .env fayldan API kalitni o'qiymiz va Gemini mijozini yaratamiz
+            api_key = os.getenv("GEMINI_API_KEY")
+            if not api_key:
+                return Response(
+                    {"error": "Serverda API kalit topilmadi. .env faylni tekshiring."},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
 
-            # 5. dis.json faylidan qo'shimcha davolash choralarini qidirish
-            additional_cure = DIS_JSON.get(disease_key, None)
-            if not additional_cure:
-                for key in DIS_JSON.keys():
-                    if disease_key in key.lower():
-                        additional_cure = DIS_JSON[key]
-                        break
+            client = genai.Client(api_key=api_key)
 
-            # 6. 🌟 INGLIZCHADAN O'ZBEK TILIGA AVTOMATIK TARJIMA QILISH
-            # Tarjimon ob'ektini yaratamiz (en -> uz)
-            translator = GoogleTranslator(source='en', target='uz')
+            # 3. Kelgan rasmni PIL (Pillow) kutubxonasi yordamida ochamiz
+            img = Image.open(image_file)
 
-            # Kasallik nomi va davolash choralarini tarjima qilamiz
-            uz_detected_disease = translator.translate(predicted_class)
-
-            uz_plant_info = {}
-            if plant_info:
-                uz_plant_info = {
-                    "plant_name": translator.translate(plant_info["plant_name"]),
-                    "part_affected": translator.translate(plant_info["part_affected"]),
-                    "disease_type": translator.translate(plant_info["disease_type"]),
-                    "cure": translator.translate(plant_info["cure"])
-                }
-
-            uz_additional_cure = "Qo'shimcha davolash chorasi yo'q."
-            if additional_cure:
-                uz_additional_cure = translator.translate(additional_cure)
-
-            # 7. Yakuniy javobni O'ZBEK tilida qaytarish
-            return Response({
+            # 4. Menga (Gemini'ga) beriladigan aniq ko'rsatma (Prompt)
+            prompt = """
+            Zararlangan o'simlik bargining rasmini tahlil qil va faqat quyidagi formatda toza JSON qaytar:
+            {
                 "status": "success",
-                "prediction": {
-                    "detected_disease_en": predicted_class,
-                    "detected_disease_uz": uz_detected_disease,  # ◄ O'zbekcha nomi
-                    "confidence": f"{confidence * 100:.2f}%"
-                },
-                "details_uz": uz_plant_info if uz_plant_info else "Batafsil ma'lumot topilmadi.",
-                "additional_cure_uz": uz_additional_cure
-            })
+                "detected_disease": "Kasallik nomi (Inglizcha va O'zbekcha)",
+                "confidence": "Aniqlik foizi (masalan, 95%)",
+                "plant_name": "O'simlik nomi",
+                "part_affected": "Zararlangan qismi",
+                "disease_type": "Kasallik turi (bakteriyalik, zamburug'li va h.k.)",
+                "cure": "Kasallikni davolash va oldini olish choralari (O'zbek tilida batafsil)"
+            }
+            Diqqat: Javobingda faqat toza JSON matni bo'lsin, hech qanday ```json markdown belgilari yoki ortiqcha so'zlar qo'shma!
+            """
+
+            # 5. Rasmni va promptni eng so'nggi 'gemini-2.5-flash' modeliga uzatamiz
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=[img, prompt]
+            )
+
+            # 6. Mendan qaytgan matnni JSON formatiga o'giramiz (pars qilamiz)
+            # Agar model string qaytargan bo'lsa, uni Python lug'atiga (dict) aylantiramiz
+            try:
+                result_json = json.loads(response.text.strip())
+                return Response(result_json, status=status.HTTP_200_OK)
+            except json.JSONDecodeError:
+                # Agar model kutilmaganda toza JSON formatda qaytarmasa, matnning o'zini yuboramiz
+                return Response({"status": "success", "raw_data": response.text}, status=status.HTTP_200_OK)
 
         except Exception as e:
-            return Response({"error": f"Tahlil jarayonida ichki xatolik: {str(e)}"}, status=500)
+            return Response(
+                {"error": f"Tizimda xatolik yuz berdi: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
